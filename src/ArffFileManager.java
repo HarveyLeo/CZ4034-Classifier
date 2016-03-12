@@ -1,7 +1,3 @@
-/**
- * Created by Haihui on 5/3/2016.
- */
-
 import weka.core.Instances;
 import weka.core.converters.ConverterUtils.DataSource;
 import java.io.PrintWriter;

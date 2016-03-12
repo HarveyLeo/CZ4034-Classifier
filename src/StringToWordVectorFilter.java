@@ -8,9 +8,6 @@ import weka.filters.unsupervised.attribute.StringToWordVector;
 
 import java.io.File;
 
-/**
- * Created by Haihui on 5/3/2016.
- */
 public class StringToWordVectorFilter {
 
     public static final String STOPWORDS_FILEPATH = "files/stop-words.txt";

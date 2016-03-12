@@ -1,6 +1,3 @@
-/**
- * Created by Haihui on 5/3/2016.
- */
 import weka.classifiers.meta.AdaBoostM1;
 import weka.core.Instances;
 import weka.core.SerializationHelper;
@@ -11,19 +8,29 @@ public class Tester {
 
     public static void main(String[] args) throws Exception {
 
-//        FileConverter.convertJSONtoARFF("Files/json-testing.json",true);
-//        FileConverter.convertCSVtoARFF("Files/training-set.csv");
+        //BBC
+        FileConverter.convertJSONtoARFF("files/news-sources/bbc.json");
+        ClassPredictor.predict("files/news-sources/bbc.arff", "files/adaboost-smo-classifier.model", "files/string-to-word-vector-filter.model");
+        Merger.merge("files/news-sources/bbc.json", "files/news-sources/bbc-labelled.arff", "BBC");
 
+        //CNN
+        FileConverter.convertJSONtoARFF("files/news-sources/cnn.json");
+        ClassPredictor.predict("files/news-sources/cnn.arff", "files/adaboost-smo-classifier.model", "files/string-to-word-vector-filter.model");
+        Merger.merge("files/news-sources/cnn.json", "files/news-sources/cnn-labelled.arff", "CNN");
 
-//        Evaluation eval = ClassifierEvaluator.crossValidate("files/adaboost-smo.model","files/training-set-filtered.arff", 0);
-//        Evaluation eval = ClassifierEvaluator.evaluateWithTestSet("files/adaboost-smo.model","files/training-set-filtered.arff", 0);
-//        System.out.println(eval.toClassDetailsString());
-//        System.out.println(eval.toSummaryString());
+        //Guardian
+        FileConverter.convertJSONtoARFF("files/news-sources/guardian.json");
+        ClassPredictor.predict("files/news-sources/guardian.arff", "files/adaboost-smo-classifier.model", "files/string-to-word-vector-filter.model");
+        Merger.merge("files/news-sources/guardian.json", "files/news-sources/guardian-labelled.arff", "Guardian");
 
+        //Reuters
+        FileConverter.convertJSONtoARFF("files/news-sources/reuters.json");
+        ClassPredictor.predict("files/news-sources/reuters.arff", "files/adaboost-smo-classifier.model", "files/string-to-word-vector-filter.model");
+        Merger.merge("files/news-sources/reuters.json", "files/news-sources/reuters-labelled.arff", "Reuters");
 
-//        StringToWordVectorFilter.filter("files/training-set.arff", 0);
-//        AdaBoostM1 cls = BoostClassifier.classifyBySMOBoosting("files/training-set-filtered.arff", 0);
-        ClassPredictor.predict("files/straittimes.arff", "files/adaboost-smo-classifier.model", "files/string-to-word-vector-filter.model");
-//        FileConverter.convertJSONtoARFF("files/straittimes.json", true, true);
+        //Straits Times
+        FileConverter.convertJSONtoARFF("files/news-sources/straits-times.json");
+        ClassPredictor.predict("files/news-sources/straits-times.arff", "files/adaboost-smo-classifier.model", "files/string-to-word-vector-filter.model");
+        Merger.merge("files/news-sources/straits-times.json", "files/news-sources/straits-times-labelled.arff", "Straits Times");
     }
 }

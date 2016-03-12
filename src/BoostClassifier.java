@@ -1,7 +1,3 @@
-/**
- * Created by Haihui on 5/3/2016.
- */
-
 import weka.classifiers.meta.AdaBoostM1;
 import weka.classifiers.functions.SMO;
 import weka.core.Instances;

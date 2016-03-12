@@ -3,9 +3,6 @@ import weka.classifiers.Classifier;
 import weka.core.Instances;
 import weka.core.SerializationHelper;
 
-/**
- * Created by Haihui on 5/3/2016.
- */
 public class ClassPredictor {
 
     /**

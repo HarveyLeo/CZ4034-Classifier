@@ -5,9 +5,6 @@ import weka.core.SerializationHelper;
 
 import java.util.Random;
 
-/**
- * Created by Haihui on 5/3/2016.
- */
 public class ClassifierEvaluator {
 
     /**

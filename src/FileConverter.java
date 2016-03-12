@@ -57,19 +57,36 @@ public class FileConverter {
         //Read the JSON file into a JSON array.
         BufferedReader br = new BufferedReader(new FileReader(filename));
         String jsonString = IOUtils.toString(br);
+        br.close();
         JSONArray jsonArray = new JSONArray(jsonString);
 
         //Create a new JSON array to store the pruned JSON objects.
         JSONArray prunedJsonArray = new JSONArray();
 
         //Only "message" attribute is kept, and URL, non-letter character and redundant spaces are removed.
-        JSONObject jsonObject, prunedJsonObject;
+        JSONObject jsonObject, prunedJsonObject, attachment;
         String message;
         for (int i = 0; i < jsonArray.length(); i++) {
             jsonObject = jsonArray.getJSONObject(i);
+
+            //Concatenate the post message together with the attachment name.
             message = jsonObject.getString("message");
+            if (jsonObject.has("attachment")) {
+                attachment = jsonObject.getJSONObject("attachment");
+                if (attachment.has("name")){
+                    message = message.concat(" " + attachment.getString("name"));
+                }
+            }
+
+            //Remove URL, non-letter character and redundant spaces.
             message = message.replaceAll(URL_REGEX, " ").replaceAll(NON_LETTER_SPACE_REGEX, " ");
             message = message.replaceAll(SPACE_REGEX, " ").trim();
+
+            //Set message to "nil" if it is empty.
+            if (message.length() == 0) {
+                message = "nil";
+            }
+
             prunedJsonObject = new JSONObject();
             prunedJsonObject.put("message", message);
             prunedJsonArray.put(prunedJsonObject);

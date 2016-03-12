@@ -35,7 +35,7 @@ public class ClassPredictor {
         }
 
         // save labeled data
-        ArffFileManager.saveARFF(labelled, FilenameUtils.getPath(unlabelledFile) + "labelled-data.arff");
+        ArffFileManager.saveARFF(labelled, FilenameUtils.getPath(unlabelledFile) + FilenameUtils.getBaseName(unlabelledFile) + "-labelled.arff");
 
     }
 

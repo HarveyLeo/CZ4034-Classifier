@@ -31,7 +31,7 @@ public class StringToWordVectorFilter {
 
         //Save to an ARFF file.
         String basename = FilenameUtils.getBaseName(filename);
-        String path = FilenameUtils.getPath(filename);
+        String path = FilenameUtils.getFullPath(filename);
         ArffFileManager.saveARFF(outputInstances, path + basename + "-filtered.arff");
 
         //Serialize the filter.

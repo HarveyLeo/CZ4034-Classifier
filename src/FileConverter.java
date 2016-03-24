@@ -97,7 +97,7 @@ public class FileConverter {
         String csv = CDL.toString(prunedJsonArray);
 
         //Write the CSV string into .csv file.
-        String csvFilename = FilenameUtils.getPath(filename) + FilenameUtils.getBaseName(filename) + ".csv";
+        String csvFilename = FilenameUtils.getFullPath(filename) + FilenameUtils.getBaseName(filename) + ".csv";
         FileWriter fw = new FileWriter(csvFilename);
         IOUtils.write(csv, fw);
         IOUtils.closeQuietly(fw);
@@ -132,7 +132,7 @@ public class FileConverter {
         //Save ARFF.
         ArffSaver saver = new ArffSaver();
         saver.setInstances(data);
-        String arffFilename = FilenameUtils.getPath(filename) + FilenameUtils.getBaseName(filename) + ".arff";
+        String arffFilename = FilenameUtils.getFullPath(filename) + FilenameUtils.getBaseName(filename) + ".arff";
         saver.setFile(new File(arffFilename));
         saver.writeBatch();
 

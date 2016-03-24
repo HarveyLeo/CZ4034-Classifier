@@ -36,7 +36,7 @@ public class Merger {
             jsonObject.put("category", category);
         }
 
-        String updatedJsonFile = FilenameUtils.getPath(jsonFile) + FilenameUtils.getBaseName(jsonFile) + "-updated.json";
+        String updatedJsonFile = FilenameUtils.getFullPath(jsonFile) + FilenameUtils.getBaseName(jsonFile) + "-updated.json";
         FileWriter fw = new FileWriter(updatedJsonFile);
         jsonArray.write(fw);
         fw.close();

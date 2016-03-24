@@ -1,4 +1,4 @@
-@relation 'training-set-weka.filters.unsupervised.attribute.StringToWordVector-R2-W1000000-prune-rate-1.0-N0-L-S-stemmerweka.core.stemmers.SnowballStemmer -S porter-M1-O-stopwordsD:\\Local Repositories\\information-retrieval\\Classifier\\files\\stop-words.txt-tokenizerweka.core.tokenizers.WordTokenizer -delimiters \" \\r\\n\\t.,;:\\\'\\\"()?!\"'
+@relation 'training-set-weka.filters.unsupervised.attribute.StringToWordVector-R2-W1000000-prune-rate-1.0-N0-L-S-stemmerweka.core.stemmers.SnowballStemmer -S porter-M1-O-stopwordsD:\\Local Repositories\\Classifier\\files\\stop-words.txt-tokenizerweka.core.tokenizers.WordTokenizer -delimiters \" \\r\\n\\t.,;:\\\'\\\"()?!\"'
 
 @attribute @class@ {Social,Technology,Politics,Economy}
 @attribute aaron numeric

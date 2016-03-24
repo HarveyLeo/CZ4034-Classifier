@@ -8,6 +8,10 @@ public class Tester {
 
     public static void main(String[] args) throws Exception {
 
+        //Train data
+        StringToWordVectorFilter.filter("files/training-set.arff", 0);
+        BoostClassifier.classifyBySMOBoosting("files/training-set-filtered.arff", 0);
+
         //BBC
         FileConverter.convertJSONtoARFF("files/news-sources/bbc.json");
         ClassPredictor.predict("files/news-sources/bbc.arff", "files/adaboost-smo-classifier.model", "files/string-to-word-vector-filter.model");

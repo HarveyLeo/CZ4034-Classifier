@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.File;
+import java.util.ArrayList;
 
 import org.json.JSONArray;
 import org.json.CDL;
@@ -120,11 +121,12 @@ public class FileConverter {
         Instances data = loader.getDataSet();
 
         //Create the nominal class type: categories.
-        FastVector categories = new FastVector();
-        categories.addElement("Politics");
-        categories.addElement("Economy");
-        categories.addElement("Social");
-        categories.addElement("Technology");
+        ArrayList<String> categories = new ArrayList<String>();
+        categories.add("Politics");
+        categories.add("Economy");
+        categories.add("Social");
+        categories.add("Technology");
+
         data.insertAttributeAt(new Attribute("@class@", categories), 0);
 
         //Save ARFF.

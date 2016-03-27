@@ -5,9 +5,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * Created by Haihui on 24/3/2016.
- */
 @WebServlet(name = "ClassifierServlet", urlPatterns = {"/classify"})
 public class ClassifierServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

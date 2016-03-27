@@ -85,14 +85,7 @@ public class ClassifierServlet extends HttpServlet {
             OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
             wr.write(data);
             wr.flush();
-
-            BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            String line;
-            while ((line = rd.readLine()) != null) {
-                System.out.println(line);
-            }
             wr.close();
-            rd.close();
         } catch (Exception ex) {
             ex.printStackTrace();
         }

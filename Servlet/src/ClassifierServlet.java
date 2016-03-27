@@ -1,14 +1,24 @@
+import org.apache.commons.io.IOUtils;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import java.io.*;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
 
 @WebServlet(name = "ClassifierServlet", urlPatterns = {"/classify"})
 public class ClassifierServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         classify();
+        sendPostRequest("bbc-updated");
+        sendPostRequest("cnn-updated");
+        sendPostRequest("guardian-updated");
+        sendPostRequest("reuters-updated");
+        sendPostRequest("straits-times-updated");
         response.getWriter().println("OK");
     }
 
@@ -53,6 +63,36 @@ public class ClassifierServlet extends HttpServlet {
                     getServletContext().getRealPath("files/string-to-word-vector-filter.model"));
             Merger.merge(getServletContext().getRealPath("files/news-sources/straits-times.json"),
                     getServletContext().getRealPath("files/news-sources/straits-times-labelled.arff"), "Straits Times");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+
+    private void sendPostRequest(String filename) {
+
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(getServletContext().getRealPath("files/news-sources/" + filename + ".json")));
+            String jsonString = IOUtils.toString(br);
+            br.close();
+
+            String data = URLEncoder.encode("text", "UTF-8") + "=" + URLEncoder.encode(jsonString, "UTF-8");
+            data += "&" + URLEncoder.encode("filename", "UTF-8") + "=" + URLEncoder.encode(filename, "UTF-8");
+
+            URL url = new URL("http://solr.kenrick95.xyz:3000/file");
+            URLConnection conn = url.openConnection();
+            conn.setDoOutput(true);
+            OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+            wr.write(data);
+            wr.flush();
+
+            BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String line;
+            while ((line = rd.readLine()) != null) {
+                System.out.println(line);
+            }
+            wr.close();
+            rd.close();
         } catch (Exception ex) {
             ex.printStackTrace();
         }

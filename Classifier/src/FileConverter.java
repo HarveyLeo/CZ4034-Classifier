@@ -15,7 +15,7 @@ import weka.core.Attribute;
 import weka.core.Instances;
 import weka.core.converters.ArffSaver;
 import weka.core.converters.CSVLoader;
-import weka.core.FastVector;
+
 
 
 public class FileConverter {

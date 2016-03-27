@@ -6,13 +6,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 
 @WebServlet(name = "ClassifierServlet", urlPatterns = {"/classify"})
 public class ClassifierServlet extends HttpServlet {
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         classify();
         sendPostRequest("bbc-updated");
         sendPostRequest("cnn-updated");
@@ -80,14 +84,19 @@ public class ClassifierServlet extends HttpServlet {
             data += "&" + URLEncoder.encode("filename", "UTF-8") + "=" + URLEncoder.encode(filename, "UTF-8");
 
             URL url = new URL("http://192.168.109.3:3000/file");
-            URLConnection conn = url.openConnection();
-            conn.setDoOutput(true);
-            OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-            wr.write(data);
-            wr.flush();
-            wr.close();
-        } catch (Exception ex) {
-            ex.printStackTrace();
+            HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
+            httpCon.setDoOutput(true);
+            httpCon.setRequestMethod("POST");
+            OutputStreamWriter out = new OutputStreamWriter(
+                    httpCon.getOutputStream());
+            out.write(data);
+            out.close();
+
+            System.out.println(httpCon.getResponseCode());
+            System.out.println(httpCon.getResponseMessage());
+            out.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

@@ -83,7 +83,8 @@ public class ClassifierServlet extends HttpServlet {
             String data = URLEncoder.encode("text", "UTF-8") + "=" + URLEncoder.encode(jsonString, "UTF-8");
             data += "&" + URLEncoder.encode("filename", "UTF-8") + "=" + URLEncoder.encode(filename, "UTF-8");
 
-            URL url = new URL("http://192.168.109.3:3000/file");
+//            URL url = new URL("http://192.168.109.3:3000/file");
+            URL url = new URL("http://solr.kenrick95.xyz:3000/file");
             HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
             httpCon.setDoOutput(true);
             httpCon.setRequestMethod("POST");
@@ -91,8 +92,6 @@ public class ClassifierServlet extends HttpServlet {
                     httpCon.getOutputStream());
             out.write(data);
             out.close();
-
-            System.out.println(httpCon.getResponseCode());
             System.out.println(httpCon.getResponseMessage());
             out.close();
         } catch (Exception e) {

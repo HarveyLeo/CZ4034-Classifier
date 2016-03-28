@@ -76,10 +76,11 @@ public class StringToWordVectorFilter {
         SnowballStemmer stemmer = new SnowballStemmer();
         filter.setTokenizer(tokenizer);
         filter.setInputFormat(inputInstances);
-        filter.setWordsToKeep(1000000);
+        filter.setWordsToKeep(10000);
         filter.setDoNotOperateOnPerClassBasis(true);
         filter.setLowerCaseTokens(true);
         filter.setStemmer(stemmer);
+        filter.setMinTermFreq(3);
         filter.setStopwords(new File(STOPWORDS_FILEPATH));
 
         return filter;

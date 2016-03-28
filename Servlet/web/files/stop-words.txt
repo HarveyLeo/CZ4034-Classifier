@@ -1,8 +1,11 @@
 a
 an
 at
+abl
 and
 are
+abu
+ac
 also
 against
 actually
@@ -30,6 +33,8 @@ his
 him
 her
 not
+nfl
+nhl
 of
 or
 on
@@ -46,6 +51,8 @@ they
 take
 that
 their
+r
+rr
 union
 us
 ve
@@ -58,6 +65,13 @@ were
 with
 where
 would
+ts
+v
+wu
+x
+xi
+y
+z
 
 
 #days

@@ -24,6 +24,7 @@ public class ClassifierServlet extends HttpServlet {
         sendPostRequest("reuters-updated");
         sendPostRequest("straits-times-updated");
         response.getWriter().println("OK");
+
     }
 
     private void classify() {
@@ -93,7 +94,6 @@ public class ClassifierServlet extends HttpServlet {
             out.write(data);
             out.close();
             System.out.println(httpCon.getResponseMessage());
-            out.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

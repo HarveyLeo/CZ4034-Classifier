@@ -28,7 +28,7 @@ public class BoostClassifier {
         boostClassifier.buildClassifier(instances);
 
         //Serialize the classifier.
-        SerializationHelper.write("files/adaboost-smo-classifier.model", boostClassifier);
+        SerializationHelper.write("../Servlet/web/files/adaboost-smo-classifier.model", boostClassifier);
 
         return boostClassifier;
     }

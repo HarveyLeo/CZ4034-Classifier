@@ -10,7 +10,7 @@ import java.io.File;
 
 public class StringToWordVectorFilter {
 
-    public static final String STOPWORDS_FILEPATH = "files/stop-words.txt";
+    public static final String STOPWORDS_FILEPATH = "../Servlet/web/files/stop-words.txt";
 
     /**
      * Extract word features using the StringToWordVector filter, save it to ARFF file, and serialize the filter.
@@ -35,7 +35,7 @@ public class StringToWordVectorFilter {
         ArffFileManager.saveARFF(outputInstances, path + basename + "-filtered.arff");
 
         //Serialize the filter.
-        SerializationHelper.write("files/string-to-word-vector-filter.model", filter);
+        SerializationHelper.write("../Servlet/web/files/string-to-word-vector-filter.model", filter);
     }
 
     /**
@@ -80,7 +80,7 @@ public class StringToWordVectorFilter {
         filter.setDoNotOperateOnPerClassBasis(true);
         filter.setLowerCaseTokens(true);
         filter.setStemmer(stemmer);
-        filter.setMinTermFreq(3);
+        filter.setMinTermFreq(2);
         filter.setStopwords(new File(STOPWORDS_FILEPATH));
 
         return filter;

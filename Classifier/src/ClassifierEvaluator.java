@@ -27,6 +27,10 @@ public class ClassifierEvaluator {
         Evaluation eval = new Evaluation(instances);
         eval.crossValidateModel(classifier, instances, 10, new Random(1));
 
+        //Print the evaluation result.
+        System.out.println(eval.toSummaryString());
+        System.out.println(eval.toClassDetailsString());
+
         return eval;
     }
 

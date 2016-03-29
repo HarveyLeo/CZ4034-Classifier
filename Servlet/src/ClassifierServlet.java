@@ -17,15 +17,12 @@ public class ClassifierServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-
+        //Get Json text and its filename.
         String jsonText = request.getParameter("text");
         String jsonFilename = request.getParameter("filename");
 
+        //Append the Json to the existing file.
         appendToJsonFile(getServletContext().getRealPath("files/news-sources/" + jsonFilename + ".json"), jsonText);
-
-        System.out.println(jsonText);
-        System.out.println(jsonFilename);
-
 
         //Classify the new instances.
         classify(jsonFilename);

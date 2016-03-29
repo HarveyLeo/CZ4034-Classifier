@@ -17,57 +17,54 @@ public class ClassifierServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        classify();
-        sendPostRequest("bbc-updated");
-        sendPostRequest("cnn-updated");
-        sendPostRequest("guardian-updated");
-        sendPostRequest("reuters-updated");
-        sendPostRequest("straits-times-updated");
+
+        String jsonText = request.getParameter("text");
+        String jsonFilename = request.getParameter("filename");
+
+        appendToJsonFile(getServletContext().getRealPath("files/news-sources/" + jsonFilename + ".json"), jsonText);
+
+        System.out.println(jsonText);
+        System.out.println(jsonFilename);
+
+
+        //Classify the new instances.
+        classify(jsonFilename);
+
+        //Update the indexer.
+        sendPostRequest(jsonFilename + "-updated");
+
+        //Send OK response.
         response.getWriter().println("OK");
 
     }
 
-    private void classify() {
+    private void classify(String filename) {
         try {
-            //BBC
-            FileConverter.convertJSONtoARFF(getServletContext().getRealPath("files/news-sources/bbc.json"));
-            ClassPredictor.predict(getServletContext().getRealPath("files/news-sources/bbc.arff"),
-                    getServletContext().getRealPath("files/adaboost-smo-classifier.model"),
-                    getServletContext().getRealPath("files/string-to-word-vector-filter.model"));
-            Merger.merge(getServletContext().getRealPath("files/news-sources/bbc.json"),
-                    getServletContext().getRealPath("files/news-sources/bbc-labelled.arff"), "BBC");
+            String label = "";
 
-            //CNN
-            FileConverter.convertJSONtoARFF(getServletContext().getRealPath("files/news-sources/cnn.json"));
-            ClassPredictor.predict(getServletContext().getRealPath("files/news-sources/cnn.arff"),
-                    getServletContext().getRealPath("files/adaboost-smo-classifier.model"),
-                    getServletContext().getRealPath("files/string-to-word-vector-filter.model"));
-            Merger.merge(getServletContext().getRealPath("files/news-sources/cnn.json"),
-                    getServletContext().getRealPath("files/news-sources/cnn-labelled.arff"), "CNN");
+            switch (filename) {
+                case "bbc":
+                    label = "BBC";
+                    break;
+                case "cnn":
+                    label = "CNN";
+                    break;
+                case "guardian":
+                    label = "Guardian";
+                    break;
+                case "straits-times":
+                    label = "Straits Times";
+                    break;
+                case "reuters":
+                    label = "Reuters";
+            }
 
-            //Guardian
-            FileConverter.convertJSONtoARFF(getServletContext().getRealPath("files/news-sources/guardian.json"));
-            ClassPredictor.predict(getServletContext().getRealPath("files/news-sources/guardian.arff"),
+            FileConverter.convertJSONtoARFF(getServletContext().getRealPath("files/news-sources/" + filename + ".json"));
+            ClassPredictor.predict(getServletContext().getRealPath("files/news-sources/" + filename + "arff"),
                     getServletContext().getRealPath("files/adaboost-smo-classifier.model"),
                     getServletContext().getRealPath("files/string-to-word-vector-filter.model"));
-            Merger.merge(getServletContext().getRealPath("files/news-sources/guardian.json"),
-                    getServletContext().getRealPath("files/news-sources/guardian-labelled.arff"), "Guardian");
-
-            //Reuters
-            FileConverter.convertJSONtoARFF(getServletContext().getRealPath("files/news-sources/reuters.json"));
-            ClassPredictor.predict(getServletContext().getRealPath("files/news-sources/reuters.arff"),
-                    getServletContext().getRealPath("files/adaboost-smo-classifier.model"),
-                    getServletContext().getRealPath("files/string-to-word-vector-filter.model"));
-            Merger.merge(getServletContext().getRealPath("files/news-sources/reuters.json"),
-                    getServletContext().getRealPath("files/news-sources/reuters-labelled.arff"), "Reuters");
-
-            //Straits Times
-            FileConverter.convertJSONtoARFF(getServletContext().getRealPath("files/news-sources/straits-times.json"));
-            ClassPredictor.predict(getServletContext().getRealPath("files/news-sources/straits-times.arff"),
-                    getServletContext().getRealPath("files/adaboost-smo-classifier.model"),
-                    getServletContext().getRealPath("files/string-to-word-vector-filter.model"));
-            Merger.merge(getServletContext().getRealPath("files/news-sources/straits-times.json"),
-                    getServletContext().getRealPath("files/news-sources/straits-times-labelled.arff"), "Straits Times");
+            Merger.merge(getServletContext().getRealPath("files/news-sources/" + filename + ".json"),
+                    getServletContext().getRealPath("files/news-sources/" + filename + "-labelled.arff"), label);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -95,6 +92,23 @@ public class ClassifierServlet extends HttpServlet {
             out.close();
             System.out.println(httpCon.getResponseMessage());
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void appendToJsonFile(String jsonFile, String jsonText) {
+        try{
+            File file =new File(jsonFile);
+
+            //true = append file
+            FileWriter fileWritter = new FileWriter(file.getName(), true);
+            BufferedWriter bufferWritter = new BufferedWriter(fileWritter);
+            bufferWritter.write(jsonText.substring(0, jsonText.length()));
+            bufferWritter.close();
+
+            System.out.println("Done");
+
+        }catch(IOException e){
             e.printStackTrace();
         }
     }

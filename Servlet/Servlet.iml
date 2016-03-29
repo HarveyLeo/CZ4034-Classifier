@@ -22,5 +22,6 @@
     <orderEntry type="library" scope="PROVIDED" name="GlassFish 4.1.1" level="application_server_libraries" />
     <orderEntry type="module" module-name="Classifier" />
     <orderEntry type="library" name="org.apache.commons.io" level="project" />
+    <orderEntry type="library" name="org.json" level="project" />
   </component>
 </module>

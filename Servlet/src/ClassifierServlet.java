@@ -1,6 +1,7 @@
 import org.apache.commons.io.IOUtils;
 
 import javax.servlet.ServletException;
+import javax.servlet.ServletInputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -8,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
 import java.net.URLEncoder;
 
 @WebServlet(name = "ClassifierServlet", urlPatterns = {"/classify"})
@@ -21,14 +21,15 @@ public class ClassifierServlet extends HttpServlet {
         String jsonText = request.getParameter("text");
         String jsonFilename = request.getParameter("filename");
 
+
         //Append the Json to the existing file.
-        appendToJsonFile(getServletContext().getRealPath("files/news-sources/" + jsonFilename + ".json"), jsonText);
+        updateJsonFile(getServletContext().getRealPath("files/news-sources/" + jsonFilename + ".json"), jsonText);
 
-        //Classify the new instances.
-        classify(jsonFilename);
-
-        //Update the indexer.
-        sendPostRequest(jsonFilename + "-updated");
+//        //Classify the new instances.
+//        classify(jsonFilename);
+//
+//        //Update the indexer.
+//        sendPostRequest(jsonFilename + "-updated");
 
         //Send OK response.
         response.getWriter().println("OK");
@@ -93,14 +94,21 @@ public class ClassifierServlet extends HttpServlet {
         }
     }
 
-    private void appendToJsonFile(String jsonFile, String jsonText) {
+    private void updateJsonFile(String jsonFile, String jsonText) {
         try{
-            File file =new File(jsonFile);
 
-            //true = append file
-            FileWriter fileWritter = new FileWriter(file.getName(), true);
+            System.out.println(jsonFile);
+
+            BufferedReader br = new BufferedReader(new FileReader(jsonFile));
+            String oldJsonString = IOUtils.toString(br);
+            br.close();
+
+            System.out.println(oldJsonString.length()-1);
+
+            FileWriter fileWritter = new FileWriter(jsonFile);
             BufferedWriter bufferWritter = new BufferedWriter(fileWritter);
-            bufferWritter.write(jsonText.substring(0, jsonText.length()));
+            bufferWritter.write(oldJsonString.substring(0, oldJsonString.length()-1) + "," +
+                     jsonText.substring(1));
             bufferWritter.close();
 
             System.out.println("Done");

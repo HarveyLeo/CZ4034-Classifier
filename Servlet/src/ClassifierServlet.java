@@ -25,11 +25,11 @@ public class ClassifierServlet extends HttpServlet {
         //Append the Json to the existing file.
         updateJsonFile(getServletContext().getRealPath("files/news-sources/" + jsonFilename + ".json"), jsonText);
 
-//        //Classify the new instances.
-//        classify(jsonFilename);
-//
-//        //Update the indexer.
-//        sendPostRequest(jsonFilename + "-updated");
+        //Classify the new instances.
+        classify(jsonFilename);
+
+        //Update the indexer.
+        sendPostRequest(jsonFilename + "-updated");
 
         //Send OK response.
         response.getWriter().println("OK");
@@ -58,7 +58,7 @@ public class ClassifierServlet extends HttpServlet {
             }
 
             FileConverter.convertJSONtoARFF(getServletContext().getRealPath("files/news-sources/" + filename + ".json"));
-            ClassPredictor.predict(getServletContext().getRealPath("files/news-sources/" + filename + "arff"),
+            ClassPredictor.predict(getServletContext().getRealPath("files/news-sources/" + filename + ".arff"),
                     getServletContext().getRealPath("files/adaboost-smo-classifier.model"),
                     getServletContext().getRealPath("files/string-to-word-vector-filter.model"));
             Merger.merge(getServletContext().getRealPath("files/news-sources/" + filename + ".json"),

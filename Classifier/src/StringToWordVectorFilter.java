@@ -81,6 +81,7 @@ public class StringToWordVectorFilter {
         filter.setLowerCaseTokens(true);
         filter.setStemmer(stemmer);
         filter.setMinTermFreq(2);
+//        filter.setAttributeIndices("first-last");
         filter.setStopwords(new File(STOPWORDS_FILEPATH));
 
         return filter;

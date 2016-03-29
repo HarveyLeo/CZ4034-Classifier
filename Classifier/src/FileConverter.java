@@ -122,10 +122,10 @@ public class FileConverter {
 
         //Create the nominal class type: categories.
         ArrayList<String> categories = new ArrayList<String>();
-        categories.add("Politics");
-        categories.add("Economy");
         categories.add("Social");
         categories.add("Technology");
+        categories.add("Politics");
+        categories.add("Sports");
 
         data.insertAttributeAt(new Attribute("@class@", categories), 0);
 

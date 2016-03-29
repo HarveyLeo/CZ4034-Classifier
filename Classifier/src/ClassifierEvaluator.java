@@ -30,6 +30,7 @@ public class ClassifierEvaluator {
         //Print the evaluation result.
         System.out.println(eval.toSummaryString());
         System.out.println(eval.toClassDetailsString());
+        System.out.println(eval.toMatrixString());
 
         return eval;
     }

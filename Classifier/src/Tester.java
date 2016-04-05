@@ -10,7 +10,7 @@ public class Tester {
 
         //Train data
         StringToWordVectorFilter.filter("../Servlet/web/files/training-set.arff", 0);
-        BoostClassifier.classifyBySMOBoosting("../Servlet/web/files/training-set-filtered.arff", 0);
+        BaggingClassifier.classifyBySMOBagging("../Servlet/web/files/training-set-filtered.arff", 0);
 
         //Cross-validation
         ClassifierEvaluator.crossValidate("../Servlet/web/files/adaboost-smo-classifier.model", "../Servlet/web/files/training-set-filtered.arff", 0);

@@ -15,7 +15,7 @@ import java.net.URLEncoder;
 public class ClassifierServlet extends HttpServlet {
 
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         //Get Json text and its filename.
         String jsonText = request.getParameter("text");
@@ -33,6 +33,12 @@ public class ClassifierServlet extends HttpServlet {
 
         //Send OK response.
         response.getWriter().println("OK");
+
+//        sendPostRequest("bbc-updated");
+//        sendPostRequest("cnn-updated");
+//        sendPostRequest("guardian-updated");
+//        sendPostRequest("reuters-updated");
+//        sendPostRequest("straits-times-updated");
 
     }
 
